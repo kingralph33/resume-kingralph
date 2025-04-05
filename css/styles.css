@@ -1,0 +1,166 @@
+body {
+  font-family: "Roboto Slab", serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hover\:text-blue-800:hover {
+  color: #2c5282;
+}
+
+.hover\:underline:hover {
+  text-decoration: underline;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-gray-600 {
+  color: #718096;
+}
+
+.border-gray-300 {
+  border-color: #e2e8f0;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-gray-700 {
+  color: #4a5568;
+}
+
+.my-0 {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.list-disc {
+  list-style-type: disc;
+}
+
+.pl-5 {
+  padding-left: 1.25rem;
+}
+
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+
+.text-blue-600 {
+  color: #3182ce;
+}
+
+/* Print-specific styles */
+@media print {
+  /* Remove default page margins and hide URL/page numbers */
+  @page {
+    margin: 0.5in; /* Standard resume margin */
+    size: letter; /* Use standard letter size */
+  }
+
+  /* Hide any URLs that the browser might add */
+  @page :first {
+    margin-top: 0.5in;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background-color: white;
+  }
+
+  /* Preserve the container width for printing */
+  .container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  /* Ensure links don't show with underlines or different colors */
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+
+  /* Hide hover states */
+  .hover\:text-blue-800:hover,
+  .hover\:underline:hover {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  /* Ensure text is black for better printing */
+  .text-gray-600,
+  .text-gray-700,
+  .text-blue-600 {
+    color: #000 !important;
+  }
+
+  /* Force background colors to print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
