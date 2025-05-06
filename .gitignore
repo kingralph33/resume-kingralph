@@ -1,0 +1,14 @@
+# Terraform state and config
+infra/*.tfstate*
+infra/.terraform/
+infra/.env
+infra/*.tfvars
+
+# OS files
+.DS_Store
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
