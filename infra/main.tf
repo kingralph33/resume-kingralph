@@ -5,6 +5,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "site" {
   bucket = var.bucket_name
+  force_destroy = true # Ensures bucket is deleted even if it contains objects
 }
 
 resource "aws_s3_bucket_website_configuration" "site" {
@@ -72,12 +73,11 @@ resource "aws_s3_object" "index" {
   key          = "index.html"
   source       = "${path.module}/../public/index.html"
   content_type = "text/html"
-  acl          = "public-read"
 }
 
 resource "aws_cloudfront_distribution" "cdn" {
   origin {
-    domain_name = aws_s3_bucket.site.website_endpoint
+    domain_name = aws_s3_bucket.site.bucket_regional_domain_name # Updated from website_endpoint
     origin_id   = "s3-site"
   }
 
@@ -86,7 +86,7 @@ resource "aws_cloudfront_distribution" "cdn" {
 
   aliases          = var.aliases
   price_class      = var.price_class
-  http_version     = "HTTP2"
+  http_version     = "http2"
   is_ipv6_enabled  = true
 
   default_cache_behavior {
