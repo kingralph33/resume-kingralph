@@ -1,9 +1,21 @@
 body {
-  font-family: "Roboto Slab", serif;
+  font-family: "Source Sans 3", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+h1 {
+  font-size: 2rem;
+} /* 32px */
+h2 {
+  font-size: 1.5rem;
+} /* 24px */
+h3 {
+  font-size: 1.25rem;
+} /* 20px */
+h4 {
+  font-size: 1rem;
+} /* 16px */
 
 .container {
   max-width: 64rem;
@@ -13,7 +25,6 @@ body {
 
 .section-title {
   text-align: center;
-  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -28,10 +39,6 @@ body {
 
 .text-center {
   text-align: center;
-}
-
-.text-3xl {
-  font-size: 1.875rem;
 }
 
 .font-bold {
@@ -49,10 +56,6 @@ body {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
 }
 
 .text-left {
@@ -82,10 +85,6 @@ body {
 
 .mb-6 {
   margin-bottom: 1.5rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
 }
 
 .font-semibold {
@@ -150,6 +149,19 @@ body {
     text-decoration: none !important;
   }
 
+  h1 {
+    font-size: 18pt; /* Matches Google Docs 18pt exactly */
+  }
+  h2 {
+    font-size: 14pt; /* Matches Google Docs 14pt exactly */
+  }
+  h3 {
+    font-size: 12pt; /* Matches Google Docs 12pt exactly */
+  }
+  p {
+    font-size: 11pt; /* Matches Google Docs 11pt exactly */
+  }
+
   /* Ensure text is black for better printing */
   .text-gray-600,
   .text-gray-700,
@@ -163,4 +175,3 @@ body {
     print-color-adjust: exact !important;
   }
 }
-
