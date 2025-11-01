@@ -3,19 +3,48 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-size: 11pt;
+  line-height: 1.5;
 }
 
 .container {
   max-width: 64rem;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  margin: 0.75in;
+  padding: 0;
+}
+
+h1 {
+  font-size: 16pt;
+  font-weight: 700;
+  text-align: left;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.header-name {
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+.header-contact {
+  margin: 0;
+  line-height: 1.2;
 }
 
 .section-title {
-  text-align: center;
-  font-size: 1.5rem;
+  text-align: left;
+  font-size: 12pt;
   font-weight: 700;
   margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.job-title {
+  font-size: 11pt;
+  font-weight: 700;
+  text-align: left;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .hover\:text-blue-800:hover {
@@ -26,41 +55,20 @@ body {
   text-decoration: underline;
 }
 
-.text-center {
-  text-align: center;
-}
-
-.text-3xl {
-  font-size: 1.875rem;
-}
-
 .font-bold {
   font-weight: 700;
 }
 
 .text-gray-600 {
   color: #718096;
-}
-
-.border-gray-300 {
-  border-color: #e2e8f0;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-}
-
-.text-left {
-  text-align: left;
+  font-size: 11pt;
+  line-height: 1.5;
 }
 
 .text-gray-700 {
   color: #4a5568;
+  font-size: 11pt;
+  line-height: 1.5;
 }
 
 .my-0 {
@@ -84,49 +92,43 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.text-xl {
-  font-size: 1.25rem;
-}
-
-.font-semibold {
-  font-weight: 600;
-}
-
 .list-disc {
   list-style-type: disc;
+}
+
+.list-disc li {
+  line-height: 1.5;
+  font-size: 11pt;
+  margin-bottom: 0.75em;
+}
+
+.list-disc li:last-child {
+  margin-bottom: 0;
 }
 
 .pl-5 {
   padding-left: 1.25rem;
 }
 
-.space-y-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
-}
-
-.text-blue-600 {
-  color: #3182ce;
+p {
+  line-height: 1.5;
+  font-size: 11pt;
 }
 
 /* Print-specific styles */
 @media print {
   /* Remove default page margins and hide URL/page numbers */
   @page {
-    margin: 0.5in; /* Standard resume margin */
-    size: letter; /* Use standard letter size */
-  }
-
-  /* Hide any URLs that the browser might add */
-  @page :first {
-    margin-top: 0.5in;
+    margin: 0.75in;
+    size: letter;
   }
 
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
     background-color: white;
+    font-size: 11pt;
+    line-height: 1.5;
   }
 
   /* Preserve the container width for printing */
@@ -134,7 +136,27 @@ body {
     width: 100%;
     max-width: none;
     padding: 0;
-    margin: 0 auto;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 16pt;
+    line-height: 1.5;
+  }
+
+  .section-title {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  .job-title {
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  p, li {
+    font-size: 11pt;
+    line-height: 1.5;
   }
 
   /* Ensure links don't show with underlines or different colors */
@@ -152,8 +174,7 @@ body {
 
   /* Ensure text is black for better printing */
   .text-gray-600,
-  .text-gray-700,
-  .text-blue-600 {
+  .text-gray-700 {
     color: #000 !important;
   }
 
