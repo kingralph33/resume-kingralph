@@ -4,7 +4,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-size: 11pt;
-  line-height: 1.5;
+  line-height: 1.15;
 }
 
 .container {
@@ -17,7 +17,7 @@ h1 {
   font-size: 16pt;
   font-weight: 700;
   text-align: left;
-  line-height: 1.5;
+  line-height: 1.15;
   margin: 0;
 }
 
@@ -29,6 +29,7 @@ h1 {
 .header-contact {
   margin: 0;
   line-height: 1.2;
+  font-size: 10pt;
 }
 
 .section-title {
@@ -36,7 +37,7 @@ h1 {
   font-size: 12pt;
   font-weight: 700;
   margin-bottom: 1rem;
-  line-height: 1.5;
+  line-height: 1.15;
 }
 
 .job-title {
@@ -44,7 +45,11 @@ h1 {
   font-weight: 700;
   text-align: left;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.15;
+}
+
+.job-location {
+  font-size: 10pt !important;
 }
 
 .hover\:text-blue-800:hover {
@@ -61,14 +66,10 @@ h1 {
 
 .text-gray-600 {
   color: #718096;
-  font-size: 11pt;
-  line-height: 1.5;
 }
 
 .text-gray-700 {
   color: #4a5568;
-  font-size: 11pt;
-  line-height: 1.5;
 }
 
 .my-0 {
@@ -97,7 +98,7 @@ h1 {
 }
 
 .list-disc li {
-  line-height: 1.5;
+  line-height: 1.15;
   font-size: 11pt;
   margin-bottom: 0.75em;
 }
@@ -111,7 +112,7 @@ h1 {
 }
 
 p {
-  line-height: 1.5;
+  line-height: 1.15;
   font-size: 11pt;
 }
 
@@ -128,7 +129,8 @@ p {
     print-color-adjust: exact;
     background-color: white;
     font-size: 11pt;
-    line-height: 1.5;
+    line-height: 1.15;
+    font-family: Calibri, "Trebuchet MS", sans-serif;
   }
 
   /* Preserve the container width for printing */
@@ -141,22 +143,22 @@ p {
 
   h1 {
     font-size: 16pt;
-    line-height: 1.5;
+    line-height: 1.15;
   }
 
   .section-title {
     font-size: 12pt;
-    line-height: 1.5;
+    line-height: 1.15;
   }
 
   .job-title {
     font-size: 11pt;
-    line-height: 1.5;
+    line-height: 1.15;
   }
 
   p, li {
     font-size: 11pt;
-    line-height: 1.5;
+    line-height: 1.15;
   }
 
   /* Ensure links don't show with underlines or different colors */
