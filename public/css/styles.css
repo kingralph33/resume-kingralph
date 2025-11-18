@@ -13,6 +13,11 @@ body {
   padding: 0;
 }
 
+header {
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.5rem;
+}
+
 h1 {
   font-size: 16pt;
   font-weight: 700;
@@ -24,6 +29,7 @@ h1 {
 .header-name {
   margin-bottom: 0;
   line-height: 1.2;
+  color: #2e5c8a;
 }
 
 .header-contact {
@@ -38,6 +44,7 @@ h1 {
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.15;
+  color: #2e5c8a;
 }
 
 .job-title {
@@ -141,14 +148,24 @@ p {
     margin: 0;
   }
 
+  header {
+    border-bottom: 1px solid #000 !important;
+    padding-bottom: 0.5rem;
+  }
+
   h1 {
     font-size: 16pt;
     line-height: 1.15;
   }
 
+  .header-name {
+    color: #2e5c8a !important;
+  }
+
   .section-title {
     font-size: 12pt;
     line-height: 1.15;
+    color: #2e5c8a !important;
   }
 
   .job-title {
