@@ -3,9 +3,23 @@ provider "aws" {
   region  = var.aws_region
 }
 
+# Data source to get current AWS account information
+data "aws_caller_identity" "current" {}
+
 resource "aws_s3_bucket" "site" {
   bucket = var.bucket_name
   force_destroy = true # Ensures bucket is deleted even if it contains objects
+}
+
+# Enable encryption at rest for S3 bucket
+resource "aws_s3_bucket_server_side_encryption_configuration" "site" {
+  bucket = aws_s3_bucket.site.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
 }
 
 resource "aws_s3_bucket_website_configuration" "site" {
@@ -43,7 +57,7 @@ data "aws_iam_policy_document" "bucket_policy" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceAccount"
-      values   = ["828671358116"]
+      values   = [data.aws_caller_identity.current.account_id]
     }
   }
   statement {
@@ -58,7 +72,7 @@ data "aws_iam_policy_document" "bucket_policy" {
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values   = ["arn:aws:cloudfront::828671358116:distribution/E1JLEA660IWBM2"]
+      values   = [aws_cloudfront_distribution.cdn.arn]
     }
   }
 }

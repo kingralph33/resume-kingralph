@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'public/**'  # Only trigger when files in public/ change
 
 jobs:
   deploy:
@@ -22,7 +24,9 @@ jobs:
         
     - name: Sync files to S3
       run: |
-        aws s3 sync public/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
+        aws s3 sync public/ s3://${{ secrets.S3_BUCKET_NAME }} \
+          --delete \
+          --cache-control max-age=31536000,public
         
     - name: Invalidate CloudFront cache
       run: |
