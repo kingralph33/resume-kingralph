@@ -1,20 +1,25 @@
-terraform {
-  required_version = ">= 1.0.0"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 6.16.0" # Use 6.x versions, at least 6.16.0
-    }
-  }
-}
 provider "aws" {
   profile = var.profile
   region  = var.aws_region
 }
 
+# Data source to get current AWS account information
+data "aws_caller_identity" "current" {}
+
 resource "aws_s3_bucket" "site" {
-  bucket        = var.bucket_name
+  bucket = var.bucket_name
   force_destroy = true # Ensures bucket is deleted even if it contains objects
+}
+
+# Enable encryption at rest for S3 bucket
+resource "aws_s3_bucket_server_side_encryption_configuration" "site" {
+  bucket = aws_s3_bucket.site.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
 }
 
 resource "aws_s3_bucket_website_configuration" "site" {
@@ -30,6 +35,21 @@ resource "aws_s3_bucket_website_configuration" "site" {
 }
 
 data "aws_iam_policy_document" "bucket_policy" {
+  statement {
+    sid    = "AllowLogging"
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["logging.s3.amazonaws.com"]
+    }
+    actions   = ["s3:PutObject"]
+    resources = ["${aws_s3_bucket.site.arn}/*"]
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
+    }
+  }
   statement {
     sid    = "AllowCloudFrontServicePrincipal"
     effect = "Allow"
@@ -59,8 +79,10 @@ resource "aws_s3_object" "index" {
   content_type = "text/html"
 }
 
+# Origin Access Control for secure CloudFront-to-S3 access
 resource "aws_cloudfront_origin_access_control" "site" {
-  name                              = "${var.bucket_name}-oac"
+  name                              = "kingralphresume.com-oac"
+  description                       = "OAC for resume site S3 bucket"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
@@ -76,17 +98,17 @@ resource "aws_cloudfront_distribution" "cdn" {
   enabled             = true
   default_root_object = "index.html"
 
-  aliases         = var.aliases
-  price_class     = var.price_class
-  http_version    = "http2"
-  is_ipv6_enabled = true
+  aliases          = var.aliases
+  price_class      = var.price_class
+  http_version     = "http2"
+  is_ipv6_enabled  = true
 
   default_cache_behavior {
-    allowed_methods        = ["GET", "HEAD"]
-    cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = "s3-site"
+    allowed_methods  = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "s3-site"
     viewer_protocol_policy = "redirect-to-https"
-    cache_policy_id        = var.cache_policy_id
+    cache_policy_id = var.cache_policy_id
   }
 
   viewer_certificate {
@@ -102,7 +124,8 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 }
 
+# Output for deploy script
 output "distribution_id" {
   value       = aws_cloudfront_distribution.cdn.id
-  description = "CloudFront distribution ID"
+  description = "CloudFront distribution ID for cache invalidation"
 }
