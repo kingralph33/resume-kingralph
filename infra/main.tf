@@ -36,16 +36,6 @@ resource "aws_s3_bucket_website_configuration" "site" {
 
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
-    sid    = "PublicRead"
-    effect = "Allow"
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.site.arn}/*"]
-  }
-  statement {
     sid    = "AllowLogging"
     effect = "Allow"
     principals {
@@ -89,10 +79,20 @@ resource "aws_s3_object" "index" {
   content_type = "text/html"
 }
 
+# Origin Access Control for secure CloudFront-to-S3 access
+resource "aws_cloudfront_origin_access_control" "site" {
+  name                              = "kingralphresume.com-oac"
+  description                       = "OAC for resume site S3 bucket"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+
 resource "aws_cloudfront_distribution" "cdn" {
   origin {
-    domain_name = aws_s3_bucket.site.bucket_regional_domain_name # Updated from website_endpoint
-    origin_id   = "s3-site"
+    domain_name              = aws_s3_bucket.site.bucket_regional_domain_name # Updated from website_endpoint
+    origin_id                = "s3-site"
+    origin_access_control_id = aws_cloudfront_origin_access_control.site.id
   }
 
   enabled             = true
@@ -122,4 +122,10 @@ resource "aws_cloudfront_distribution" "cdn" {
       restriction_type = "none"
     }
   }
+}
+
+# Output for deploy script
+output "distribution_id" {
+  value       = aws_cloudfront_distribution.cdn.id
+  description = "CloudFront distribution ID for cache invalidation"
 }

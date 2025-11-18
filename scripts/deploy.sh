@@ -18,7 +18,6 @@ echo "✅ Terraform applied."
 echo "🌐 Syncing public/ to S3://$BUCKET_NAME..."
 aws s3 sync public/ s3://"$BUCKET_NAME" \
   --delete \
-  --acl public-read \
   --cache-control max-age=31536000,public
 
 # cloudfront invalidation
